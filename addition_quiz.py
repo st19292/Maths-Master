@@ -1,11 +1,14 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.2: Finished Visual Interface
-# 14052023: Finalized Layout
+# Component 2.2: Resettable Question
+# 14052023: Next Question Functionality
 
 
 # Classes Importing
 from tkinter import *
 '''GUI Python Module'''
+
+import random
+'''Randomizing Module'''
 
 
 # Maths Master Quiz Interface
@@ -27,10 +30,15 @@ class QuizInterface:
         # Creates Bottom Proximity Frame
         self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
 
+        # Initialize Question & Answer Variables
+        self.question = ""
+        self.answer = 0
+
         # Calls Frames Methods & Elements
         self.menu_top_frame()
         self.menu_middle_frame()
         self.menu_bottom_frame()
+        self.random_numbers()
 
         # Displays GUI
         self.root.mainloop()
@@ -54,14 +62,26 @@ class QuizInterface:
                            width=80)
         subheading.pack(pady=(10, 0))
 
+    def random_numbers(self):
+        # Randomizes Two Number from 1 to 25
+        number_one = random.randint(1, 25)
+        number_two = random.randint(1, 25)
+
+        # Answer Set as their Sum
+        self.question = f"{number_one} + {number_two}"
+        self.answer = number_one + number_two
+
     def menu_middle_frame(self):
         """Middle Proximity: Quiz Interface Frame Function"""
 
         # Middle Proximity, Quiz Choice (Row 1-2)
         self.middle_quiz_frame.grid(row=1, column=0, rowspan=2)
 
+        # Runs Function for Question
+        self.random_numbers()
+
         # Quiz Questions Heading
-        addition_text = Label(master=self.middle_quiz_frame, text="77 + 33",
+        addition_text = Label(master=self.middle_quiz_frame, text=self.question,
                               font=("Raleway", "35", "bold"), bg="#242424", fg="white",
                               width=10)
         addition_text.grid(row=2, column=0)
@@ -87,11 +107,6 @@ class QuizInterface:
             """Testing Button"""
             print("Help & Info Button clicked!")
 
-        # History & Export Link
-        def next_question_button_clicked():
-            """Testing Button"""
-            print("History & Export Button clicked!")
-
         # Help & Info Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                        font=("Raleway", "11", "bold"), fg="black", bg="white",
@@ -101,7 +116,7 @@ class QuizInterface:
         # History & Export Button
         next_question_button = Button(master=self.bottom_buttons_frame, text="Next Question",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                      height=1, width=16, relief="flat", command=next_question_button_clicked)
+                                      height=1, width=16, relief="flat", command=self.random_numbers)
         next_question_button.grid(row=3, column=1, padx=8, pady=10)
 
 
