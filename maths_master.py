@@ -1,3 +1,8 @@
+# Project: Maths Master
+# Component 1.3: Final Draft
+# 14052023: Added Classes Execution
+
+
 # Classes Importing
 from tkinter import *
 '''GUI Python Module'''
@@ -25,15 +30,26 @@ class MathsMasterApp:
         # Creates Bottom Proximity Frame
         self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
 
-        # Creates Image Instances
+        # Creates Image Instances for Operator Buttons
         self.addition_image_path = "images/addition.png"
         addition_image = Image.open(self.addition_image_path)
         addition_image = addition_image.resize((70, 70))
         self.add_addition_image = ImageTk.PhotoImage(addition_image)
 
-        self.add_subtraction_image = None
-        self.add_multiplication_image = None
-        self.add_division_image = None
+        self.subtraction_image_path = "images/subtraction.png"
+        subtraction_image = Image.open(self.subtraction_image_path)
+        subtraction_image = subtraction_image.resize((70, 70))
+        self.add_subtraction_image = ImageTk.PhotoImage(subtraction_image)
+
+        self.multiplication_image_path = "images/multiplication.png"
+        multiplication_image = Image.open(self.multiplication_image_path)
+        multiplication_image = multiplication_image.resize((70, 70))
+        self.add_multiplication_image = ImageTk.PhotoImage(multiplication_image)
+
+        self.division_image_path = "images/division.png"
+        division_image = Image.open(self.division_image_path)
+        division_image = division_image.resize((70, 70))
+        self.add_division_image = ImageTk.PhotoImage(division_image)
 
         # Calls Frames Methods & Elements
         self.menu_top_frame()
@@ -108,11 +124,6 @@ class MathsMasterApp:
                                     bg="#242424", highlightthickness=0)
         canvas_subtraction.grid(row=1, column=1)
 
-        # Adds/Resize Subtraction Image
-        subtract_image = Image.open("images/subtraction.png")
-        subtract_image = subtract_image.resize((70, 70))
-        self.add_subtraction_image = ImageTk.PhotoImage(subtract_image)
-
         # Subtraction Text
         subtraction_text = Label(master=self.middle_operators_frame, text="Subtraction",
                                  font=("Raleway", "8", "bold"), bg="#242424", fg="white",
@@ -128,11 +139,6 @@ class MathsMasterApp:
                                        bg="#242424", highlightthickness=0)
         canvas_multiplication.grid(row=1, column=2)
 
-        # Adds/Resize Multiplication Image
-        multiplication_image = Image.open("images/multiplication.png")
-        multiplication_image = multiplication_image.resize((70, 70))
-        add_multiplication_image = ImageTk.PhotoImage(multiplication_image)
-
         # Multiplication Text
         multiplication_text = Label(master=self.middle_operators_frame, text="Multiplication",
                                     font=("Raleway", "8", "bold"), bg="#242424", fg="white",
@@ -140,18 +146,13 @@ class MathsMasterApp:
         multiplication_text.grid(row=2, column=2)
 
         # Sets Multiplication Command
-        multiplication_button = canvas_multiplication.create_image(40, 40, image=add_multiplication_image)
+        multiplication_button = canvas_multiplication.create_image(40, 40, image=self.add_multiplication_image)
         canvas_multiplication.tag_bind(multiplication_button, "<Button>", multiplication_button_clicked)
 
         # Creates Division Widget
         canvas_division = Canvas(master=self.middle_operators_frame, width=82, height=82,
                                  bg="#242424", highlightthickness=0)
         canvas_division.grid(row=1, column=3)
-
-        # Adds/Resize Division Image
-        division_image = Image.open("images/division.png")
-        division_image = division_image.resize((70, 70))
-        add_division_image = ImageTk.PhotoImage(division_image)
 
         # Division Text
         division_text = Label(master=self.middle_operators_frame, text="Division",
