@@ -1,6 +1,6 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.24: New Questions
-# 15052023: Generative Questions, Next Being Entry Checking
+# Component 2.24: Successful Generation & Validation
+# 15052023: Validates Correctly, Next is 10 Questions Limit & Stores Incorrect Answers
 
 
 # Classes Importing
@@ -37,12 +37,18 @@ class QuizInterface:
         self.question = ""
         self.answer = 0
         self.addition_text = None
+        self.user_entry = None
+        self.number_one = None
+        self.number_two = None
+        self.feedback_text = None
 
         # Calls Frames Methods & Elements
         self.menu_top_frame()
         self.menu_middle_frame()
         self.menu_bottom_frame()
-        self.random_numbers()
+
+        # Creates First Question
+        self.generate_new_question()
 
         # Displays GUI
         self.root.mainloop()
@@ -72,23 +78,23 @@ class QuizInterface:
         # Middle Proximity, Quiz Choice (Row 1-2)
         self.middle_quiz_frame.grid(row=1, column=0, rowspan=2)
 
-        # Runs Function for Question
-        self.random_numbers()
-
         # Quiz Questions Heading
         self.addition_text = Label(master=self.middle_quiz_frame, text=self.question, font=("Raleway", "35", "bold"),
                                    bg="#242424", fg="white", width=10)
         self.addition_text.grid(row=2, column=0)
 
         # Entry Feedback
-        feedback_text = Label(master=self.middle_quiz_frame, text="Correct!",
-                              font=("Raleway", "8"), bg="#242424", fg="#99FF99",
-                              width=10)
-        feedback_text.grid(row=3, column=0)
+        self.feedback_text = Label(master=self.middle_quiz_frame, text="Please type an answer",
+                                   font=("Raleway", "9"), bg="#242424", fg="white",
+                                   width=30)
+        self.feedback_text.grid(row=3, column=0)
 
         # Entry Feedback
-        name_entry = Entry(master=self.middle_quiz_frame, font=("Raleway", "12"), width=18, justify=CENTER)
-        name_entry.grid(row=4, column=0)
+        self.user_entry = Entry(master=self.middle_quiz_frame, font=("Raleway", "12"), width=18, justify=CENTER)
+        self.user_entry.grid(row=4, column=0)
+
+        # Runs Function for Question
+        self.generate_new_question()
 
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
@@ -102,28 +108,28 @@ class QuizInterface:
 
             print("Help & Info Button clicked!")
 
-        # Help & Info Button
+        # Return To Menu Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                        font=("Raleway", "11", "bold"), fg="black", bg="white",
                                        height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
         return_to_menu_button.grid(row=3, column=0, padx=8, pady=10)
 
-        # History & Export Button
-        next_question_button = Button(master=self.bottom_buttons_frame, text="Next Question",
+        # Submit Answer Button
+        next_question_button = Button(master=self.bottom_buttons_frame, text="Submit Answer",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                      height=1, width=16, relief="flat", command=self.generate_new_question)
+                                      height=1, width=16, relief="flat", command=self.answer_check)
         next_question_button.grid(row=3, column=1, padx=8, pady=10)
 
     def random_numbers(self):
         """Generates & Displays Two Random Numbers"""
 
         # Randomizes Two Number from 1 to 25
-        number_one = random.randint(1, 25)
-        number_two = random.randint(1, 25)
+        self.number_one = random.randint(1, 25)
+        self.number_two = random.randint(1, 25)
 
-        # Answer Set as their Sum
-        self.question = f"{number_one} + {number_two}"
-        self.answer = number_one + number_two
+        # Sets Heading Question & Correct Answer
+        self.question = f"{self.number_one} + {self.number_two}"
+        self.answer = self.number_one + self.number_two
 
     def generate_new_question(self):
         """Generates New Numbers & Updates as New Question"""
@@ -131,6 +137,38 @@ class QuizInterface:
         # Calls New Numbers & Updates Question Heading
         self.random_numbers()
         self.addition_text.config(text=self.question)
+
+        # Clears Entry Box
+        self.user_entry.delete(0, END)
+
+    def answer_check(self):
+        """Checks User Input as Correct, Incorrect, or Invalid"""
+
+        # Checks if Input is Integer
+        try:
+            # Sets Variable from Called Entry
+            user_answer = int(self.user_entry.get())
+
+            # Compares Correct Answer & User Input to Mark; Changes Color to Green or Red
+            if user_answer == self.answer:
+                self.feedback_text.config(text=f"Correct: {self.number_one} + {self.number_two} is {self.answer}")
+                self.feedback_text.config(fg="#99FF99")
+            else:
+                self.feedback_text.config(text=f"Incorrect: {self.number_one} + {self.number_two} is {self.answer}")
+                self.feedback_text.config(fg="#FF9999")
+
+            # If Integers Valid, Generates New Question
+            self.generate_new_question()
+
+        # Addresses Invalid Input
+        except ValueError:
+            self.feedback_text.config(text="Invalid input. Please enter a valid number.")
+            self.feedback_text.config(fg="#FF9999")
+
+        # Given Unknown Error, Addresses
+        except Exception as e:
+            self.feedback_text.config(text=f"An error occurred: {str(e)}")
+            self.feedback_text.config(fg="#FF9999")
 
 
 # Runs Program
