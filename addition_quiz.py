@@ -1,6 +1,6 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.24: Successful Generation & Validation
-# 15052023: Validates Correctly, Next is 10 Questions Limit & Stores Incorrect Answers
+# Component 2.24: Question Number & Incorrect List
+# 15052023: Drafting Final Components
 
 
 # Classes Importing
@@ -36,11 +36,13 @@ class QuizInterface:
         # Initialize Question, Answer & Update Variables
         self.question = ""
         self.answer = 0
+        self.question_number = 1
         self.addition_text = None
         self.user_entry = None
         self.number_one = None
         self.number_two = None
         self.feedback_text = None
+        self.incorrect_list = []
 
         # Calls Frames Methods & Elements
         self.menu_top_frame()
@@ -65,8 +67,9 @@ class QuizInterface:
                              font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white",
                              width=30)
         main_heading.pack(pady=(10, 0))
-
-        menu_subheading_text = "Question 2 of 10"
+        
+        # Sets Question Number
+        menu_subheading_text = f"Question {self.question_number} of 10"
         subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
                            font=("Raleway", "10"), bg="#2B2B2B", fg="white",
                            width=80)
@@ -75,7 +78,7 @@ class QuizInterface:
     def menu_middle_frame(self):
         """Middle Proximity: Quiz Interface Frame Function"""
 
-        # Middle Proximity, Quiz Choice (Row 1-2)
+        # Middle Proximity, Quiz Choice (Row 1-4)
         self.middle_quiz_frame.grid(row=1, column=0, rowspan=2)
 
         # Quiz Questions Heading
@@ -86,7 +89,7 @@ class QuizInterface:
         # Entry Feedback
         self.feedback_text = Label(master=self.middle_quiz_frame, text="Please type an answer",
                                    font=("Raleway", "9"), bg="#242424", fg="white",
-                                   width=30)
+                                   width=35)
         self.feedback_text.grid(row=3, column=0)
 
         # Entry Feedback
@@ -99,8 +102,8 @@ class QuizInterface:
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
 
-        # Bottom Proximity, Footer Navigation (Row 3)
-        self.bottom_buttons_frame.grid(row=3, column=0, rowspan=4)
+        # Bottom Proximity, Footer Navigation (Row 5)
+        self.bottom_buttons_frame.grid(row=5, column=0, rowspan=4)
 
         # Help & Info Button Link
         def return_to_menu_button_clicked():
@@ -112,13 +115,13 @@ class QuizInterface:
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                        font=("Raleway", "11", "bold"), fg="black", bg="white",
                                        height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
-        return_to_menu_button.grid(row=3, column=0, padx=8, pady=10)
+        return_to_menu_button.grid(row=5, column=0, padx=8, pady=10)
 
         # Submit Answer Button
         next_question_button = Button(master=self.bottom_buttons_frame, text="Submit Answer",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
                                       height=1, width=16, relief="flat", command=self.answer_check)
-        next_question_button.grid(row=3, column=1, padx=8, pady=10)
+        next_question_button.grid(row=5, column=1, padx=8, pady=10)
 
     def random_numbers(self):
         """Generates & Displays Two Random Numbers"""
@@ -155,6 +158,7 @@ class QuizInterface:
                 self.feedback_text.config(fg="#99FF99")
             else:
                 self.feedback_text.config(text=f"Incorrect: {self.number_one} + {self.number_two} is {self.answer}")
+                self.incorrect_list.append(f"{self.number_one} + {self.number_two} = {self.answer}")
                 self.feedback_text.config(fg="#FF9999")
 
             # If Integers Valid, Generates New Question
@@ -164,11 +168,13 @@ class QuizInterface:
         except ValueError:
             self.feedback_text.config(text="Invalid input. Please enter a valid number.")
             self.feedback_text.config(fg="#FF9999")
+            self.user_entry.delete(0, END)
 
         # Given Unknown Error, Addresses
         except Exception as e:
             self.feedback_text.config(text=f"An error occurred: {str(e)}")
             self.feedback_text.config(fg="#FF9999")
+            self.user_entry.delete(0, END)
 
 
 # Runs Program
