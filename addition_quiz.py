@@ -1,6 +1,6 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.2: Resettable Question
-# 14052023: Next Question Functionality
+# Component 2.24: New Questions
+# 15052023: Generative Questions, Next Being Entry Checking
 
 
 # Classes Importing
@@ -13,9 +13,12 @@ import random
 
 # Maths Master Quiz Interface
 class QuizInterface:
+    """Creates Class for Quiz Interface Window"""
+
     def __init__(self):
         """Initializes Math Master Instance"""
 
+        # Sets Tkinter Window Settings
         self.root = Tk()
         self.root.title("Maths Master: Addition Quiz")
         self.root.resizable(False, False)
@@ -30,9 +33,10 @@ class QuizInterface:
         # Creates Bottom Proximity Frame
         self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
 
-        # Initialize Question & Answer Variables
+        # Initialize Question, Answer & Update Variables
         self.question = ""
         self.answer = 0
+        self.addition_text = None
 
         # Calls Frames Methods & Elements
         self.menu_top_frame()
@@ -62,15 +66,6 @@ class QuizInterface:
                            width=80)
         subheading.pack(pady=(10, 0))
 
-    def random_numbers(self):
-        # Randomizes Two Number from 1 to 25
-        number_one = random.randint(1, 25)
-        number_two = random.randint(1, 25)
-
-        # Answer Set as their Sum
-        self.question = f"{number_one} + {number_two}"
-        self.answer = number_one + number_two
-
     def menu_middle_frame(self):
         """Middle Proximity: Quiz Interface Frame Function"""
 
@@ -81,10 +76,9 @@ class QuizInterface:
         self.random_numbers()
 
         # Quiz Questions Heading
-        addition_text = Label(master=self.middle_quiz_frame, text=self.question,
-                              font=("Raleway", "35", "bold"), bg="#242424", fg="white",
-                              width=10)
-        addition_text.grid(row=2, column=0)
+        self.addition_text = Label(master=self.middle_quiz_frame, text=self.question, font=("Raleway", "35", "bold"),
+                                   bg="#242424", fg="white", width=10)
+        self.addition_text.grid(row=2, column=0)
 
         # Entry Feedback
         feedback_text = Label(master=self.middle_quiz_frame, text="Correct!",
@@ -105,6 +99,7 @@ class QuizInterface:
         # Help & Info Button Link
         def return_to_menu_button_clicked():
             """Testing Button"""
+
             print("Help & Info Button clicked!")
 
         # Help & Info Button
@@ -116,8 +111,27 @@ class QuizInterface:
         # History & Export Button
         next_question_button = Button(master=self.bottom_buttons_frame, text="Next Question",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                      height=1, width=16, relief="flat", command=self.random_numbers)
+                                      height=1, width=16, relief="flat", command=self.generate_new_question)
         next_question_button.grid(row=3, column=1, padx=8, pady=10)
 
+    def random_numbers(self):
+        """Generates & Displays Two Random Numbers"""
 
+        # Randomizes Two Number from 1 to 25
+        number_one = random.randint(1, 25)
+        number_two = random.randint(1, 25)
+
+        # Answer Set as their Sum
+        self.question = f"{number_one} + {number_two}"
+        self.answer = number_one + number_two
+
+    def generate_new_question(self):
+        """Generates New Numbers & Updates as New Question"""
+
+        # Calls New Numbers & Updates Question Heading
+        self.random_numbers()
+        self.addition_text.config(text=self.question)
+
+
+# Runs Program
 QuizInterface()
