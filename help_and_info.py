@@ -1,5 +1,5 @@
 # Project: Maths Master
-# Component 1.3: Final Draft
+# Component 3.32: Final Draft
 # 14052023: Added Classes Execution
 
 
@@ -60,7 +60,17 @@ class MathsMasterApp:
         # Middle Proximity, Quiz Choice (Row 1-2)
         self.middle_operators_frame.grid(row=1, column=0, rowspan=2)
 
-        
+        # Addition Text
+        help_and_info_text = ("This program helps you improve your basic math skills. "
+                              "Choose from addition, subtraction, multiplication, or "
+                              "division to take a quiz. Each quiz has 10 random questions. \n\n"
+                              "If you get a question wrong, you can view your history of " 
+                              "incorrect answers and export them for future review.")
+        help_and_info = Label(master=self.middle_operators_frame, text=help_and_info_text,
+                              font=("Raleway", "10",), bg="#242424", fg="white",
+                              wraplength=420)
+        help_and_info.grid(row=2, column=0, pady=10)
+
 
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
