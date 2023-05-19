@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component 3.32: Final Draft
-# 14052023: Added Classes Execution
+# Component 3.3: Finished Component
+# 14052023: Added Openable Window via Button & Quit
 
 
 # Classes Importing
@@ -15,7 +15,6 @@ class MathsMasterApp:
 
         self.root = Tk()
         self.root.title("Maths Master: Help & Info")
-        self.root.resizable(False, False)
         self.root.configure(bg="#242424")
 
         # Creates Top Proximity Frame
@@ -78,27 +77,46 @@ class MathsMasterApp:
         # Bottom Proximity, Footer Navigation (Row 3)
         self.bottom_buttons_frame.grid(row=3, column=0, rowspan=4)
 
-        # Help & Info Button Link
-        def help_and_info_button_clicked():
+        # Return To Menu Button Link
+        def return_to_menu_button_clicked():
             """Testing Button"""
-            print("Help & Info Button clicked!")
 
-        # History & Export Link
-        def history_and_export_button_clicked():
-            """Testing Button"""
-            print("History & Export Button clicked!")
+            # Creates Window
+            window = Tk()
+            window.title("Maths Master")
+            window.configure(bg="#242424")
+
+            # Primary Headers Frame
+            headings_frame = Frame(master=window, padx=10, pady=10, bg="#2B2B2B")
+            headings_frame.grid(row=0, column=0)
+
+            # Main & Subheading Labels
+            menu_heading_text = "Maths Master: Basic Facts Quiz"
+            main_heading = Label(master=headings_frame, text=menu_heading_text,
+                                font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white",
+                                width=30)
+            main_heading.pack(pady=(10, 0))
+
+            menu_subheading_text = "Test your maths knowledge by choosing a basic facts challenge!"
+            subheading = Label(master=headings_frame, text=menu_subheading_text,
+                            font=("Raleway", "10"), bg="#2B2B2B", fg="white",
+                            width=80)
+            subheading.pack(pady=(10, 0))
+
+            # Quit Button
+            quit_window = Button(window, text="Quit", font=("Raleway", "11", "bold"), fg="black", bg="white",
+                                      height=1, width=16, relief="flat", command=window.destroy)
+            quit_window.grid(row=1, column=0)
+
+            # Displays GUI
+            window.mainloop()
+
 
         # Help & Info Button
-        help_and_info_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
+        return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                      height=1, width=16, relief="flat", command=help_and_info_button_clicked)
-        help_and_info_button.grid(row=3, column=0, padx=8, pady=10)
-
-        # History & Export Button
-        history_and_export_button = Button(master=self.bottom_buttons_frame, text="History & Export",
-                                           font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                           height=1, width=16, relief="flat", command=history_and_export_button_clicked)
-        history_and_export_button.grid(row=3, column=1, padx=8, pady=10)
+                                      height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
+        return_to_menu_button.grid(row=3, column=0, padx=8, pady=10)
 
 
 MathsMasterApp()
