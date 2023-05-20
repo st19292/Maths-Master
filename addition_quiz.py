@@ -1,13 +1,15 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.24: Question Number & Incorrect List
-# 15052023: Drafting Final Components
+# Component 2.25: Updating List & Question
+# 21052023: Final, Lacking 10 Question Limit
 
 
 # Classes Importing
 from tkinter import *
+
 '''GUI Python Module'''
 
 import random
+
 '''Randomizing Module'''
 
 
@@ -36,7 +38,8 @@ class QuizInterface:
         # Initialize Question, Answer & Update Variables
         self.question = ""
         self.answer = 0
-        self.question_number = 1
+        self.question_number = 0
+        self.subheading = ""
         self.addition_text = None
         self.user_entry = None
         self.number_one = None
@@ -67,13 +70,13 @@ class QuizInterface:
                              font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white",
                              width=30)
         main_heading.pack(pady=(10, 0))
-        
+
         # Sets Question Number
         menu_subheading_text = f"Question {self.question_number} of 10"
-        subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
-                           font=("Raleway", "10"), bg="#2B2B2B", fg="white",
-                           width=80)
-        subheading.pack(pady=(10, 0))
+        self.subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
+                                font=("Raleway", "10"), bg="#2B2B2B", fg="white",
+                                width=80)
+        self.subheading.pack(pady=(10, 0))
 
     def menu_middle_frame(self):
         """Middle Proximity: Quiz Interface Frame Function"""
@@ -143,6 +146,11 @@ class QuizInterface:
 
         # Clears Entry Box
         self.user_entry.delete(0, END)
+
+        # Updates Question Number
+        menu_subheading_text = f"Question {self.question_number} of 10"
+        self.subheading.config(text=menu_subheading_text)
+        self.question_number += 1
 
     def answer_check(self):
         """Checks User Input as Correct, Incorrect, or Invalid"""
