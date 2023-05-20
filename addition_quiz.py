@@ -1,6 +1,6 @@
 # Project: Maths Master - Quiz Interface
-# Component 2.25: Updating List & Question
-# 21052023: Final, Lacking 10 Question Limit
+# Component 2.26: 10 Questions Limit
+# 21052023: Final, Questions Limited
 
 
 # Classes Importing
@@ -46,6 +46,7 @@ class QuizInterface:
         self.number_two = None
         self.feedback_text = None
         self.incorrect_list = []
+        self.next_question_button = None
 
         # Calls Frames Methods & Elements
         self.menu_top_frame()
@@ -121,10 +122,10 @@ class QuizInterface:
         return_to_menu_button.grid(row=5, column=0, padx=8, pady=10)
 
         # Submit Answer Button
-        next_question_button = Button(master=self.bottom_buttons_frame, text="Submit Answer",
-                                      font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                      height=1, width=16, relief="flat", command=self.answer_check)
-        next_question_button.grid(row=5, column=1, padx=8, pady=10)
+        self.next_question_button = Button(master=self.bottom_buttons_frame, text="Submit Answer",
+                                           font=("Raleway", "11", "bold"), fg="black", bg="white",
+                                           height=1, width=16, relief="flat", command=self.answer_check)
+        self.next_question_button.grid(row=5, column=1, padx=8, pady=10)
 
     def random_numbers(self):
         """Generates & Displays Two Random Numbers"""
@@ -151,6 +152,11 @@ class QuizInterface:
         menu_subheading_text = f"Question {self.question_number} of 10"
         self.subheading.config(text=menu_subheading_text)
         self.question_number += 1
+
+        # Disables Button if 10 Question Iterated
+        if self.question_number > 10:
+            self.next_question_button.config(state="disabled")
+            self.subheading.config(text="Quiz Finished!")
 
     def answer_check(self):
         """Checks User Input as Correct, Incorrect, or Invalid"""
