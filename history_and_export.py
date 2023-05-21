@@ -61,11 +61,26 @@ class MathsMasterApp:
         # Middle Proximity, Quiz Choice (Row 1-2)
         self.middle_operators_frame.grid(row=1, column=0, rowspan=2)
 
+        recent_label = Label(master=self.middle_operators_frame, text="Recent Incorrect Answers",
+                              font=("Raleway", "10",), bg="#242424", fg="white",
+                              wraplength=420)
+        recent_label.grid(row=1, column=0, pady=0)
+
+        list = ["9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21",
+                "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21"]
+
+        # Creates Bottom Proximity Frame
+        first_field = Label(master=self.middle_operators_frame, text=list,
+                              font=("Raleway", "8",), bg="#242424", fg="white",
+                              wraplength=70)
+        first_field.grid(row=3, column=0, pady=0)
+
+
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
 
         # Bottom Proximity, Footer Navigation (Row 3)
-        self.bottom_buttons_frame.grid(row=3, column=0, rowspan=4)
+        self.bottom_buttons_frame.grid(row=4, column=0, rowspan=4)
 
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
@@ -81,13 +96,13 @@ class MathsMasterApp:
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                        font=("Raleway", "11", "bold"), fg="black", bg="white",
                                        height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
-        return_to_menu_button.grid(row=3, column=0, padx=8, pady=10)
+        return_to_menu_button.grid(row=4, column=0, padx=8, pady=10)
 
         # Export Button
         export_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
                                font=("Raleway", "11", "bold"), fg="black", bg="white",
                                height=1, width=16, relief="flat", command=export_button_clicked)
-        export_button.grid(row=3, column=1, padx=8, pady=10)
+        export_button.grid(row=4, column=1, padx=8, pady=10)
 
 
 MathsMasterApp()
