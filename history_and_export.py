@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component 4.23: Incorrect Answers Columns
-# 22052023: Rows Iterate Relative to List Loop to Present
+# Component 4.24: Export Entry
+# 22052023: Export Entry with None
 
 
 # Classes Importing
@@ -69,15 +69,15 @@ class MathsMasterApp:
         corrected_answers_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
         corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(60, 0))
 
-        answers_list = ["9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21",
-                        "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1"]
+        answers_list = ['21 + 5 = 26', '11 + 11 = 22', '1 + 13 = 14', '16 + 21 = 37', '7 + 22 = 29', 
+                        '1 + 2 = 3', '13 + 23 = 36', '20 + 22 = 42', '24 + 8 = 32', '18 + 19 = 37']
 
         # Iterates First Five in List
         for i in range(5):
             answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
                                  font=("Raleway", "8"), bg="#242424", fg="white",
                                  wraplength=70)
-            answer_label.grid(row=i + 1, column=0, pady=0)
+            answer_label.grid(row=i + 1, column=0, padx=5, pady=0)
             """Iterates Next Number as Next Row"""
 
         # Iterates Last Five in List
@@ -85,14 +85,27 @@ class MathsMasterApp:
             answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
                                  font=("Raleway", "8"), bg="#242424", fg="white",
                                  wraplength=70)
-            answer_label.grid(row=i - 4, column=1, pady=0)
+            answer_label.grid(row=i - 4, column=1, padx=5, pady=0)
             """When i = 5, 5 - 4 is 1 for Row & Column 1"""
+
+        # Export Entry Frame
+        export_entry_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
+        export_entry_frame.grid(row=4, column=0, rowspan=2, padx=10, pady=(0, 0))
+
+        # Heading
+        file_naming = Label(master=export_entry_frame, text="Export Test",
+                             font=("Raleway", "10",), bg="#242424", fg="white")
+        file_naming.grid(row=4, column=0, pady=0)
+
+        # The
+        self.user_entry = Entry(master=export_entry_frame, font=("Raleway", "12"), width=18, justify=CENTER)
+        self.user_entry.grid(row=5, column=0)
 
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
 
         # Bottom Proximity, Footer Navigation (Row 3)
-        self.bottom_buttons_frame.grid(row=4, column=0, rowspan=4)
+        self.bottom_buttons_frame.grid(row=6, column=0, rowspan=4)
 
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
@@ -108,13 +121,13 @@ class MathsMasterApp:
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
                                        font=("Raleway", "11", "bold"), fg="black", bg="white",
                                        height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
-        return_to_menu_button.grid(row=4, column=0, padx=8, pady=10)
+        return_to_menu_button.grid(row=6, column=0, padx=8, pady=0)
 
         # Export Button
         export_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
                                font=("Raleway", "11", "bold"), fg="black", bg="white",
                                height=1, width=16, relief="flat", command=export_button_clicked)
-        export_button.grid(row=4, column=1, padx=8, pady=10)
+        export_button.grid(row=6, column=1, padx=8, pady=10)
 
 
 MathsMasterApp()
