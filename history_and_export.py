@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component 4.1: Initializing History & Export Window
-# 14052023: Added Heading & Subheading
+# Component 4.23: Incorrect Answers Columns
+# 22052023: Rows Iterate Relative to List Loop to Present
 
 
 # Classes Importing
@@ -57,24 +57,36 @@ class MathsMasterApp:
 
     def menu_middle_frame(self):
         """Middle Proximity: Button Operators Frame Function"""
-
         # Middle Proximity, Quiz Choice (Row 1-2)
-        self.middle_operators_frame.grid(row=1, column=0, rowspan=2)
+        self.middle_operators_frame.grid(row=1, column=0, rowspan=2, padx=10, pady=0)
 
         recent_label = Label(master=self.middle_operators_frame, text="Recent Incorrect Answers",
-                              font=("Raleway", "10",), bg="#242424", fg="white",
-                              wraplength=420)
-        recent_label.grid(row=1, column=0, pady=0)
+                             font=("Raleway", "10",), bg="#242424", fg="white",
+                             wraplength=420)
+        recent_label.grid(row=0, column=0, pady=0)
 
-        list = ["9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21",
-                "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21"]
+        # Correct Answers Frame
+        corrected_answers_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
+        corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(60, 0))
 
-        # Creates Bottom Proximity Frame
-        first_field = Label(master=self.middle_operators_frame, text=list,
-                              font=("Raleway", "8",), bg="#242424", fg="white",
-                              wraplength=70)
-        first_field.grid(row=3, column=0, pady=0)
+        answers_list = ["9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21", "9 + 10 = 21",
+                        "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1", "10 - 9 = 1"]
 
+        # Iterates First Five in List
+        for i in range(5):
+            answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
+                                 font=("Raleway", "8"), bg="#242424", fg="white",
+                                 wraplength=70)
+            answer_label.grid(row=i + 1, column=0, pady=0)
+            """Iterates Next Number as Next Row"""
+
+        # Iterates Last Five in List
+        for i in range(5, 10):
+            answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
+                                 font=("Raleway", "8"), bg="#242424", fg="white",
+                                 wraplength=70)
+            answer_label.grid(row=i - 4, column=1, pady=0)
+            """When i = 5, 5 - 4 is 1 for Row & Column 1"""
 
     def menu_bottom_frame(self):
         """Bottom Proximity: Button Navigation Frame Function"""
