@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component 4.26: File Saving
-# 28052023: Saves Files with Minor Issues
+# Component 4.27: Final File Saving
+# 29052023: Saves Files with Updating Label
 
 
 # Classes Importing
@@ -98,9 +98,9 @@ class MathsMasterApp:
         export_entry_frame.grid(row=4, column=0, rowspan=2, padx=10, pady=(0, 0))
 
         # Answers List Saving Heading
-        file_naming = Label(master=export_entry_frame, text="Export Test",
+        self.file_naming = Label(master=export_entry_frame, text="Export Test",
                             font=("Raleway", "10",), bg="#242424", fg="white")
-        file_naming.grid(row=4, column=0, pady=0)
+        self.file_naming.grid(row=4, column=0, pady=0)
 
         # User Entry List
         self.user_entry = Entry(master=export_entry_frame, font=("Raleway", "12"), width=18, justify=CENTER)
@@ -123,17 +123,25 @@ class MathsMasterApp:
             with open(self.filename, 'w') as file:
                 for answer in self.answers_list:
                     file.write(answer + '\n')
+                    self.file_naming.config(text=f"File Saved as '{self.filename}'")
+                    self.file_naming.config(fg="#99FF99")
 
         # If Unnamed, Saves File as Date; Fails if Spaces/Special Characters
         def naming_check():
             """Validate Filename Input"""
             self.filename = self.user_entry.get()
+
             if not self.filename:
-                current_date = datetime.datetime.now().strftime("%m-%d-%Y")
+                """Saves File as Current Time"""
+                current_date = datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
                 self.filename = current_date + "_answers_list.txt"
                 export_answers_list()
+
             elif any(not c.isalnum() for c in self.filename):
-                print("No Special Characters or Spaces!")
+                """Restricts Saving File with Special Characters"""
+                self.file_naming.config(text=f"No Special Characters or Spaces!")
+                self.file_naming.config(fg="#FF9999")
+
             else:
                 self.filename = self.filename + ".txt"
                 export_answers_list()
