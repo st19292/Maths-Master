@@ -1,11 +1,14 @@
 # Project: Maths Master
-# Component 4.24: Export Entry
-# 22052023: Export Entry with None
+# Component 4.26: File Saving
+# 28052023: Saves Files with Minor Issues
 
 
 # Classes Importing
 from tkinter import *
 '''GUI Python Module'''
+
+import datetime
+"""Module Allows Date Retrieval"""
 
 
 # Maths Master Main Menu
@@ -31,6 +34,8 @@ class MathsMasterApp:
         self.menu_top_frame()
         self.menu_middle_frame()
         self.menu_bottom_frame()
+
+        self.filename = ""
 
         # Displays GUI
         self.root.mainloop()
@@ -69,12 +74,12 @@ class MathsMasterApp:
         corrected_answers_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
         corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(60, 0))
 
-        answers_list = ['21 + 5 = 26', '11 + 11 = 22', '1 + 13 = 14', '16 + 21 = 37', '7 + 22 = 29', 
-                        '1 + 2 = 3', '13 + 23 = 36', '20 + 22 = 42', '24 + 8 = 32', '18 + 19 = 37']
+        self.answers_list = ['21 + 5 = 26', '11 + 11 = 22', '1 + 13 = 14', '16 + 21 = 37', '7 + 22 = 29',
+                             '1 + 2 = 3', '13 + 23 = 36', '20 + 22 = 42', '24 + 8 = 32', '18 + 19 = 37']
 
         # Iterates First Five in List
         for i in range(5):
-            answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
+            answer_label = Label(master=corrected_answers_frame, text=self.answers_list[i],
                                  font=("Raleway", "8"), bg="#242424", fg="white",
                                  wraplength=70)
             answer_label.grid(row=i + 1, column=0, padx=5, pady=0)
@@ -82,7 +87,7 @@ class MathsMasterApp:
 
         # Iterates Last Five in List
         for i in range(5, 10):
-            answer_label = Label(master=corrected_answers_frame, text=answers_list[i],
+            answer_label = Label(master=corrected_answers_frame, text=self.answers_list[i],
                                  font=("Raleway", "8"), bg="#242424", fg="white",
                                  wraplength=70)
             answer_label.grid(row=i - 4, column=1, padx=5, pady=0)
@@ -92,12 +97,12 @@ class MathsMasterApp:
         export_entry_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
         export_entry_frame.grid(row=4, column=0, rowspan=2, padx=10, pady=(0, 0))
 
-        # Heading
+        # Answers List Saving Heading
         file_naming = Label(master=export_entry_frame, text="Export Test",
-                             font=("Raleway", "10",), bg="#242424", fg="white")
+                            font=("Raleway", "10",), bg="#242424", fg="white")
         file_naming.grid(row=4, column=0, pady=0)
 
-        # The
+        # User Entry List
         self.user_entry = Entry(master=export_entry_frame, font=("Raleway", "12"), width=18, justify=CENTER)
         self.user_entry.grid(row=5, column=0)
 
@@ -113,9 +118,25 @@ class MathsMasterApp:
             print("Return To Menu Button clicked!")
 
         # History & Export Link
-        def export_button_clicked():
-            """Testing Button"""
-            print("Export Button clicked!")
+        def export_answers_list():
+            """Saves File's Name as .txt"""
+            with open(self.filename, 'w') as file:
+                for answer in self.answers_list:
+                    file.write(answer + '\n')
+
+        # If Unnamed, Saves File as Date; Fails if Spaces/Special Characters
+        def naming_check():
+            """Validate Filename Input"""
+            self.filename = self.user_entry.get()
+            if not self.filename:
+                current_date = datetime.datetime.now().strftime("%m-%d-%Y")
+                self.filename = current_date + "_answers_list.txt"
+                export_answers_list()
+            elif any(not c.isalnum() for c in self.filename):
+                print("No Special Characters or Spaces!")
+            else:
+                self.filename = self.filename + ".txt"
+                export_answers_list()
 
         # Return To Menu Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
@@ -124,9 +145,9 @@ class MathsMasterApp:
         return_to_menu_button.grid(row=6, column=0, padx=8, pady=0)
 
         # Export Button
-        export_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
+        export_button = Button(master=self.bottom_buttons_frame, text="Export",
                                font=("Raleway", "11", "bold"), fg="black", bg="white",
-                               height=1, width=16, relief="flat", command=export_button_clicked)
+                               height=1, width=16, relief="flat", command=naming_check)
         export_button.grid(row=6, column=1, padx=8, pady=10)
 
 
