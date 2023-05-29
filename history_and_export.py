@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component 4.27: Final File Saving
-# 29052023: Saves Files with Updating Label
+# Component 4.28: Final Refined Structure
+# 29052023: Saves Files with Updating Label & Organized Classes
 
 
 # Classes Importing
@@ -30,12 +30,17 @@ class MathsMasterApp:
         # Creates Bottom Proximity Frame
         self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
 
+        # Sets Filename and Answers List
+        self.filename = ""
+        self.answers_list = ['21 + 5 = 26', '11 + 11 = 22', '1 + 13 = 14', '16 + 21 = 37', '7 + 22 = 29',
+                             '1 + 2 = 3', '13 + 23 = 36', '20 + 22 = 42', '24 + 8 = 32', '18 + 19 = 37']
+        self.file_naming = None
+        self.user_entry = None
+
         # Calls Frames Methods & Elements
         self.menu_top_frame()
         self.menu_middle_frame()
         self.menu_bottom_frame()
-
-        self.filename = ""
 
         # Displays GUI
         self.root.mainloop()
@@ -74,9 +79,6 @@ class MathsMasterApp:
         corrected_answers_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
         corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(60, 0))
 
-        self.answers_list = ['21 + 5 = 26', '11 + 11 = 22', '1 + 13 = 14', '16 + 21 = 37', '7 + 22 = 29',
-                             '1 + 2 = 3', '13 + 23 = 36', '20 + 22 = 42', '24 + 8 = 32', '18 + 19 = 37']
-
         # Iterates First Five in List
         for i in range(5):
             answer_label = Label(master=corrected_answers_frame, text=self.answers_list[i],
@@ -99,7 +101,7 @@ class MathsMasterApp:
 
         # Answers List Saving Heading
         self.file_naming = Label(master=export_entry_frame, text="Export Test",
-                            font=("Raleway", "10",), bg="#242424", fg="white")
+                                 font=("Raleway", "10",), bg="#242424", fg="white")
         self.file_naming.grid(row=4, column=0, pady=0)
 
         # User Entry List
