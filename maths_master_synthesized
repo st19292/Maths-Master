@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component X.7: Main Menu, Addition, Help/Info, History/Export Synthesized
-# 020632023: Altered Finishing Quiz to Automatically Prompt Reviewing
+# Component X.8: Runs Addition & Subtraction
+# 020632023: Conditional Operators Opposing Various Classes
 
 
 # Classes Importing
@@ -8,13 +8,13 @@ from tkinter import *
 '''GUI Python Module'''
 
 from PIL import Image, ImageTk
-'''GUI Images Added'''
+'''Allows Images To Be Added'''
 
 import random
 '''Randomizing Module'''
 
 import datetime
-"""Module Allows Date Retrieval"""
+'''Module Allows Date Retrieval'''
 
 
 # Maths Master Main Menu
@@ -90,13 +90,13 @@ class MathsMasterApp:
 
         # Addition Button Link
         def addition_button_clicked(click):
-            """Testing Button"""
-            AdditionQuiz()
+            """Runs Addition Quiz"""
+            QuizInterface("+")
 
         # Subtraction Button Link
         def subtraction_button_clicked(click):
-            """Testing Button"""
-            print("Subtraction Button clicked!")
+            """Runs Subtraction Quiz"""
+            QuizInterface("-")
 
         # Multiplication Button Link
         def multiplication_button_clicked(click):
@@ -178,14 +178,14 @@ class MathsMasterApp:
         help_and_info_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
                                       height=1, width=16, relief="flat", command=help_and_info_button_clicked)
-        help_and_info_button.grid(row=3, column=0, padx=8, pady=10)
+        help_and_info_button.grid(row=3, column=0, padx=8, pady=0)
 
 
 # Addition Quiz Class Window
-class AdditionQuiz:
+class QuizInterface:
     """Creates Class for Quiz Interface Window"""
 
-    def __init__(self):
+    def __init__(self, operator):
         """Initializes Math Master Instance"""
 
         # Sets Tkinter Window Settings
@@ -204,6 +204,7 @@ class AdditionQuiz:
         self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
 
         # Initialize Question, Answer & Update Variables
+        self.operator = operator
         self.question = ""
         self.answer = 0
         self.question_number = 0
@@ -294,13 +295,22 @@ class AdditionQuiz:
     def random_numbers(self):
         """Generates & Displays Two Random Numbers"""
 
-        # Randomizes Two Number from 1 to 25
-        self.number_one = random.randint(1, 25)
-        self.number_two = random.randint(1, 25)
+        if self.operator == "+":
+            # Randomizes Two Number from 1 to 25
+            self.number_one = random.randint(0, 12)
+            self.number_two = random.randint(0, 12)
 
-        # Sets Heading Question & Correct Answer
-        self.question = f"{self.number_one} + {self.number_two}"
-        self.answer = self.number_one + self.number_two
+            # Sets Heading Question & Correct Answer
+            self.question = f"{self.number_one} + {self.number_two}"
+            self.answer = self.number_one + self.number_two
+        elif self.operator == "-":
+            # Randomizes Two Number from 1 to 25
+            self.number_one = random.randint(0, 12)
+            self.number_two = random.randint(0, 12)
+
+            # Sets Heading Question & Correct Answer
+            self.question = f"{self.number_one} - {self.number_two}"
+            self.answer = self.number_one - self.number_two
 
     def generate_new_question(self):
         """Generates New Numbers & Updates as New Question"""
@@ -320,8 +330,11 @@ class AdditionQuiz:
         # Disables Button if 10 Question Iterated
         if self.question_number > 11:
             self.next_question_button.config(state="disabled")
-            self.subheading.config(text="Quiz Finished!")
-            HistoryAndExport(self.incorrect_list)
+
+            if len(self.incorrect_list) == 0:
+                self.root.destroy()
+            else:
+                HistoryAndExport(self.incorrect_list)
 
     def answer_check(self):
         """Checks User Input as Correct, Incorrect, or Invalid"""
@@ -423,7 +436,6 @@ class HelpAndInfo:
 
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
-            """Testing Button"""
 
             # Creates Window
             window = Tk()
