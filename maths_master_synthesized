@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component X.8: Runs Addition & Subtraction
-# 020632023: Conditional Operators Opposing Various Classes
+# Component X.9: Runs All Operators
+# 020632023: All Operators Exportable Efficiently
 
 
 # Classes Importing
@@ -100,13 +100,13 @@ class MathsMasterApp:
 
         # Multiplication Button Link
         def multiplication_button_clicked(click):
-            """Testing Button"""
-            print("Multiplication Button clicked!")
+            """Runs Multiplication Quiz"""
+            QuizInterface("*")
 
         # Division Button Link
         def division_button_clicked(click):
-            """Testing Button"""
-            print("Division Button clicked!")
+            """Runs Division Quiz"""
+            QuizInterface("/")
 
         # Creates Addition Widget
         canvas_addition = Canvas(master=self.middle_operators_frame, width=82, height=82, bg="#242424",
@@ -277,7 +277,7 @@ class QuizInterface:
 
         # Help & Info Button Link
         def return_to_menu_button_clicked():
-            """Testing Button"""
+            """Closes Window"""
             self.root.destroy()
 
         # Return To Menu Button
@@ -295,22 +295,29 @@ class QuizInterface:
     def random_numbers(self):
         """Generates & Displays Two Random Numbers"""
 
-        if self.operator == "+":
-            # Randomizes Two Number from 1 to 25
-            self.number_one = random.randint(0, 12)
-            self.number_two = random.randint(0, 12)
+        # Randomizes Two Numbers from 1 to 25
+        self.number_one = random.randint(0, 12)
+        self.number_two = random.randint(0, 12)
 
-            # Sets Heading Question & Correct Answer
+        if self.operator == "+":
+            '''Sets Heading Question & Correct Answer'''
             self.question = f"{self.number_one} + {self.number_two}"
             self.answer = self.number_one + self.number_two
-        elif self.operator == "-":
-            # Randomizes Two Number from 1 to 25
-            self.number_one = random.randint(0, 12)
-            self.number_two = random.randint(0, 12)
 
-            # Sets Heading Question & Correct Answer
+        elif self.operator == "-":
             self.question = f"{self.number_one} - {self.number_two}"
             self.answer = self.number_one - self.number_two
+
+        elif self.operator == "*":
+            self.question = f"{self.number_one} × {self.number_two}"
+            self.answer = self.number_one * self.number_two
+
+        else:
+            number_one_divisor = [i for i in range(1, self.number_one + 1) if self.number_one % i == 0]
+            '''Sets Whole Numbers as Answers'''
+            self.number_two = random.choice(number_one_divisor)
+            self.question = f"{self.number_one} ÷ {self.number_two}"
+            self.answer = self.number_one // self.number_two
 
     def generate_new_question(self):
         """Generates New Numbers & Updates as New Question"""
@@ -329,6 +336,7 @@ class QuizInterface:
 
         # Disables Button if 10 Question Iterated
         if self.question_number > 11:
+            self.subheading.config(text="Quiz Finished")
             self.next_question_button.config(state="disabled")
 
             if len(self.incorrect_list) == 0:
@@ -344,13 +352,27 @@ class QuizInterface:
             # Sets Variable from Called Entry
             user_answer = int(self.user_entry.get())
 
+            # Sets Correct Answer Relative to Operator
+            if self.operator == "+":
+                correct_answer = self.number_one + self.number_two
+                operation_str = f"{self.number_one} + {self.number_two}"
+            elif self.operator == "-":
+                correct_answer = self.number_one - self.number_two
+                operation_str = f"{self.number_one} - {self.number_two}"
+            elif self.operator == "*":
+                correct_answer = self.number_one * self.number_two
+                operation_str = f"{self.number_one} × {self.number_two}"
+            else:
+                correct_answer = self.number_one // self.number_two
+                operation_str = f"{self.number_one} ÷ {self.number_two}"
+
             # Compares Correct Answer & User Input to Mark; Changes Color to Green or Red
-            if user_answer == self.answer:
-                self.feedback_text.config(text=f"Correct: {self.number_one} + {self.number_two} is {self.answer}")
+            if user_answer == correct_answer:
+                self.feedback_text.config(text=f"Correct: {operation_str} is {correct_answer}")
                 self.feedback_text.config(fg="#99FF99")
             else:
-                self.feedback_text.config(text=f"Incorrect: {self.number_one} + {self.number_two} is {self.answer}")
-                self.incorrect_list.append(f"{self.number_one} + {self.number_two} = {self.answer}")
+                self.feedback_text.config(text=f"Incorrect: {operation_str} is {correct_answer}")
+                self.incorrect_list.append(f"{operation_str} = {correct_answer}")
                 self.feedback_text.config(fg="#FF9999")
 
             # If Integers Valid, Generates New Question
@@ -376,6 +398,7 @@ class HelpAndInfo:
 
         self.root = Tk()
         self.root.title("Maths Master: Help & Info")
+        self.root.resizable(False, False)
         self.root.configure(bg="#242424")
 
         # Creates Top Proximity Frame
@@ -436,34 +459,7 @@ class HelpAndInfo:
 
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
-
-            # Creates Window
-            window = Tk()
-            window.title("Maths Master")
-            window.configure(bg="#242424")
-
-            # Primary Headers Frame
-            headings_frame = Frame(master=window, padx=10, pady=10, bg="#2B2B2B")
-            headings_frame.grid(row=0, column=0)
-
-            # Main & Subheading Labels
-            menu_heading_text = "Maths Master: Basic Facts Quiz"
-            main_heading = Label(master=headings_frame, text=menu_heading_text,
-                                 font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
-            main_heading.pack(pady=(10, 0))
-
-            menu_subheading_text = "Test your maths knowledge by choosing a basic facts challenge!"
-            subheading = Label(master=headings_frame, text=menu_subheading_text,
-                               font=("Raleway", "10"), bg="#2B2B2B", fg="white", width=80)
-            subheading.pack(pady=(10, 0))
-
-            # Quit Button
-            quit_window = Button(window, text="Quit", font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                 height=1, width=16, relief="flat", command=window.destroy)
-            quit_window.grid(row=1, column=0)
-
-            # Displays GUI
-            window.mainloop()
+            self.root.destroy()
 
         # Help & Info Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
@@ -543,7 +539,7 @@ class HistoryAndExport:
         for row_num, answer in enumerate(self.answers_list):
             answer_label = Label(master=corrected_answers_frame, text=answer,
                                  font=("Raleway", "8"), bg="#242424", fg="white",
-                                 wraplength=70)
+                                 wraplength=80)
             answer_label.grid(row=row_num, column=0, padx=5, pady=0)
 
         # Export Entry Frame
