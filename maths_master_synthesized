@@ -1,6 +1,6 @@
 # Project: Maths Master
-# Component X: Synthesizing Draft
-# 30052023: Compiled Three Windows
+# Component X.7: Main Menu, Addition, Help/Info, History/Export Synthesized
+# 020632023: Altered Finishing Quiz to Automatically Prompt Reviewing
 
 
 # Classes Importing
@@ -74,14 +74,12 @@ class MathsMasterApp:
         # Main & Subheading Labels
         menu_heading_text = "Maths Master: Basic Facts Quiz"
         main_heading = Label(master=self.top_headings_frame, text=menu_heading_text,
-                             font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white",
-                             width=30)
+                             font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
         main_heading.pack(pady=(10, 0))
 
         menu_subheading_text = "Test your maths knowledge by choosing a basic facts challenge!"
         subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
-                           font=("Raleway", "10"), bg="#2B2B2B", fg="white",
-                           width=80)
+                           font=("Raleway", "10"), bg="#2B2B2B", fg="white", width=80)
         subheading.pack(pady=(10, 0))
 
     def menu_middle_frame(self):
@@ -111,14 +109,13 @@ class MathsMasterApp:
             print("Division Button clicked!")
 
         # Creates Addition Widget
-        canvas_addition = Canvas(master=self.middle_operators_frame, width=82, height=82,
-                                 bg="#242424", highlightthickness=0)
+        canvas_addition = Canvas(master=self.middle_operators_frame, width=82, height=82, bg="#242424",
+                                 highlightthickness=0)
         canvas_addition.grid(row=1, column=0)
 
         # Addition Text
         addition_text = Label(master=self.middle_operators_frame, text="Addition",
-                              font=("Raleway", "8", "bold"), bg="#242424", fg="white",
-                              width=10)
+                              font=("Raleway", "8", "bold"), bg="#242424", fg="white", width=10)
         addition_text.grid(row=2, column=0)
 
         # Sets Addition Command
@@ -126,14 +123,13 @@ class MathsMasterApp:
         canvas_addition.tag_bind(addition_button, "<Button>", addition_button_clicked)
 
         # Creates Subtraction Widget
-        canvas_subtraction = Canvas(master=self.middle_operators_frame, width=82, height=82,
-                                    bg="#242424", highlightthickness=0)
+        canvas_subtraction = Canvas(master=self.middle_operators_frame, width=82, height=82, bg="#242424",
+                                    highlightthickness=0)
         canvas_subtraction.grid(row=1, column=1)
 
         # Subtraction Text
         subtraction_text = Label(master=self.middle_operators_frame, text="Subtraction",
-                                 font=("Raleway", "8", "bold"), bg="#242424", fg="white",
-                                 width=10)
+                                 font=("Raleway", "8", "bold"), bg="#242424", fg="white", width=10)
         subtraction_text.grid(row=2, column=1)
 
         # Sets Subtraction Command
@@ -141,14 +137,13 @@ class MathsMasterApp:
         canvas_subtraction.tag_bind(subtraction_button, "<Button>", subtraction_button_clicked)
 
         # Creates Multiplication Widget
-        canvas_multiplication = Canvas(master=self.middle_operators_frame, width=82, height=82,
-                                       bg="#242424", highlightthickness=0)
+        canvas_multiplication = Canvas(master=self.middle_operators_frame, width=82, height=82, bg="#242424",
+                                       highlightthickness=0)
         canvas_multiplication.grid(row=1, column=2)
 
         # Multiplication Text
         multiplication_text = Label(master=self.middle_operators_frame, text="Multiplication",
-                                    font=("Raleway", "8", "bold"), bg="#242424", fg="white",
-                                    width=10)
+                                    font=("Raleway", "8", "bold"), bg="#242424", fg="white", width=10)
         multiplication_text.grid(row=2, column=2)
 
         # Sets Multiplication Command
@@ -156,14 +151,13 @@ class MathsMasterApp:
         canvas_multiplication.tag_bind(multiplication_button, "<Button>", multiplication_button_clicked)
 
         # Creates Division Widget
-        canvas_division = Canvas(master=self.middle_operators_frame, width=82, height=82,
-                                 bg="#242424", highlightthickness=0)
+        canvas_division = Canvas(master=self.middle_operators_frame, width=82, height=82, bg="#242424",
+                                 highlightthickness=0)
         canvas_division.grid(row=1, column=3)
 
         # Division Text
         division_text = Label(master=self.middle_operators_frame, text="Division",
-                              font=("Raleway", "8", "bold"), bg="#242424", fg="white",
-                              width=10)
+                              font=("Raleway", "8", "bold"), bg="#242424", fg="white", width=10)
         division_text.grid(row=2, column=3)
 
         # Sets Division Command
@@ -178,13 +172,7 @@ class MathsMasterApp:
 
         # Help & Info Button Link
         def help_and_info_button_clicked():
-            """Testing Button"""
-            print("Help & Info Button clicked!")
-
-        # History & Export Link
-        def history_and_export_button_clicked():
-            """Testing Button"""
-            HistoryAndExport()
+            HelpAndInfo()
 
         # Help & Info Button
         help_and_info_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
@@ -192,14 +180,8 @@ class MathsMasterApp:
                                       height=1, width=16, relief="flat", command=help_and_info_button_clicked)
         help_and_info_button.grid(row=3, column=0, padx=8, pady=10)
 
-        # History & Export Button
-        history_and_export_button = Button(master=self.bottom_buttons_frame, text="History & Export",
-                                           font=("Raleway", "11", "bold"), fg="black", bg="white",
-                                           height=1, width=16, relief="flat", command=history_and_export_button_clicked)
-        history_and_export_button.grid(row=3, column=1, padx=8, pady=10)
 
-
-# Maths Master Quiz Interface
+# Addition Quiz Class Window
 class AdditionQuiz:
     """Creates Class for Quiz Interface Window"""
 
@@ -254,15 +236,13 @@ class AdditionQuiz:
         # Main & Subheading Labels
         menu_heading_text = "Addition Quiz"
         main_heading = Label(master=self.top_headings_frame, text=menu_heading_text,
-                             font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white",
-                             width=30)
+                             font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
         main_heading.pack(pady=(10, 0))
 
         # Sets Question Number
         menu_subheading_text = f"Question {self.question_number} of 10"
         self.subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
-                                font=("Raleway", "10"), bg="#2B2B2B", fg="white",
-                                width=80)
+                                font=("Raleway", "10"), bg="#2B2B2B", fg="white", width=80)
         self.subheading.pack(pady=(10, 0))
 
     def menu_middle_frame(self):
@@ -278,8 +258,7 @@ class AdditionQuiz:
 
         # Entry Feedback
         self.feedback_text = Label(master=self.middle_quiz_frame, text="Please type an answer",
-                                   font=("Raleway", "9"), bg="#242424", fg="white",
-                                   width=35)
+                                   font=("Raleway", "9"), bg="#242424", fg="white", width=35)
         self.feedback_text.grid(row=3, column=0)
 
         # Entry Feedback
@@ -339,9 +318,10 @@ class AdditionQuiz:
         self.question_number += 1
 
         # Disables Button if 10 Question Iterated
-        if self.question_number > 10:
+        if self.question_number > 11:
             self.next_question_button.config(state="disabled")
             self.subheading.config(text="Quiz Finished!")
+            HistoryAndExport(self.incorrect_list)
 
     def answer_check(self):
         """Checks User Input as Correct, Incorrect, or Invalid"""
@@ -376,8 +356,113 @@ class AdditionQuiz:
             self.user_entry.delete(0, END)
 
 
-class HistoryAndExport:
+# Help And Info Class Window
+class HelpAndInfo:
     def __init__(self):
+        """Initializes Math Master Instance"""
+
+        self.root = Tk()
+        self.root.title("Maths Master: Help & Info")
+        self.root.configure(bg="#242424")
+
+        # Creates Top Proximity Frame
+        self.top_headings_frame = Frame(self.root, padx=10, pady=10, bg="#2B2B2B")
+
+        # Creates Middle Proximity Frame
+        self.middle_operators_frame = Frame(self.root, bg="#242424", padx=10, pady=40)
+
+        # Creates Bottom Proximity Frame
+        self.bottom_buttons_frame = Frame(self.root, bg="#242424", padx=10, pady=20)
+
+        # Calls Frames Methods & Elements
+        self.menu_top_frame()
+        self.menu_middle_frame()
+        self.menu_bottom_frame()
+
+        # Displays GUI
+        self.root.mainloop()
+
+    def menu_top_frame(self):
+        """Top Proximity: Headings Frame Function"""
+
+        # Top Proximity, Header (Row 0)
+        self.top_headings_frame.grid(row=0, column=0)
+
+        # Main & Subheading Labels
+        menu_heading_text = "Help & Information"
+        main_heading = Label(master=self.top_headings_frame, text=menu_heading_text,
+                             font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
+        main_heading.pack(pady=(10, 0))
+
+        menu_subheading_text = "Need help? Have a read on how to use the Math Master GUI."
+        subheading = Label(master=self.top_headings_frame, text=menu_subheading_text,
+                           font=("Raleway", "10"), bg="#2B2B2B", fg="white", width=80)
+        subheading.pack(pady=(10, 0))
+
+    def menu_middle_frame(self):
+        """Middle Proximity: Button Operators Frame Function"""
+
+        # Middle Proximity, Quiz Choice (Row 1-2)
+        self.middle_operators_frame.grid(row=1, column=0, rowspan=2)
+
+        # Addition Text
+        help_and_info_text = ("This program helps you improve your basic math skills. "
+                              "Choose from addition, subtraction, multiplication, or "
+                              "division to take a quiz. Each quiz has 10 random questions. \n\n"
+                              "If you get a question wrong, you can view your history of " 
+                              "incorrect answers and export them for future review.")
+        help_and_info = Label(master=self.middle_operators_frame, text=help_and_info_text,
+                              font=("Raleway", "10",), bg="#242424", fg="white", wraplength=420)
+        help_and_info.grid(row=2, column=0, pady=10)
+
+    def menu_bottom_frame(self):
+        """Bottom Proximity: Button Navigation Frame Function"""
+
+        # Bottom Proximity, Footer Navigation (Row 3)
+        self.bottom_buttons_frame.grid(row=3, column=0, rowspan=4)
+
+        # Return To Menu Button Link
+        def return_to_menu_button_clicked():
+            """Testing Button"""
+
+            # Creates Window
+            window = Tk()
+            window.title("Maths Master")
+            window.configure(bg="#242424")
+
+            # Primary Headers Frame
+            headings_frame = Frame(master=window, padx=10, pady=10, bg="#2B2B2B")
+            headings_frame.grid(row=0, column=0)
+
+            # Main & Subheading Labels
+            menu_heading_text = "Maths Master: Basic Facts Quiz"
+            main_heading = Label(master=headings_frame, text=menu_heading_text,
+                                 font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
+            main_heading.pack(pady=(10, 0))
+
+            menu_subheading_text = "Test your maths knowledge by choosing a basic facts challenge!"
+            subheading = Label(master=headings_frame, text=menu_subheading_text,
+                               font=("Raleway", "10"), bg="#2B2B2B", fg="white", width=80)
+            subheading.pack(pady=(10, 0))
+
+            # Quit Button
+            quit_window = Button(window, text="Quit", font=("Raleway", "11", "bold"), fg="black", bg="white",
+                                 height=1, width=16, relief="flat", command=window.destroy)
+            quit_window.grid(row=1, column=0)
+
+            # Displays GUI
+            window.mainloop()
+
+        # Help & Info Button
+        return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
+                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
+                                       height=1, width=16, relief="flat", command=return_to_menu_button_clicked)
+        return_to_menu_button.grid(row=3, column=0, padx=8, pady=10)
+
+
+# History And Export Class Window
+class HistoryAndExport:
+    def __init__(self, incorrect_list):
         """Initializes Math Master Instance"""
 
         self.root = Tk()
@@ -396,7 +481,7 @@ class HistoryAndExport:
 
         # Sets Filename and Answers List
         self.filename = ""
-        self.answers_list = []
+        self.answers_list = incorrect_list
         self.file_naming = None
         self.user_entry = None
 
@@ -440,23 +525,14 @@ class HistoryAndExport:
 
         # Correct Answers Frame
         corrected_answers_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
-        corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(60, 0))
+        corrected_answers_frame.grid(row=2, column=0, rowspan=2, padx=10, pady=(72, 0))
 
-        # Iterates First Five in List
-        for i in range(5):
-            answer_label = Label(master=corrected_answers_frame, text=self.answers_list[i],
+        # Iterates Over List
+        for row_num, answer in enumerate(self.answers_list):
+            answer_label = Label(master=corrected_answers_frame, text=answer,
                                  font=("Raleway", "8"), bg="#242424", fg="white",
                                  wraplength=70)
-            answer_label.grid(row=i + 1, column=0, padx=5, pady=0)
-            """Iterates Next Number as Next Row"""
-
-        # Iterates Last Five in List
-        for i in range(5, 10):
-            answer_label = Label(master=corrected_answers_frame, text=self.answers_list[i],
-                                 font=("Raleway", "8"), bg="#242424", fg="white",
-                                 wraplength=70)
-            answer_label.grid(row=i - 4, column=1, padx=5, pady=0)
-            """When i = 5, 5 - 4 is 1 for Row & Column 1"""
+            answer_label.grid(row=row_num, column=0, padx=5, pady=0)
 
         # Export Entry Frame
         export_entry_frame = Frame(self.root, padx=10, pady=10, bg="#242424")
