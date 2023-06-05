@@ -1,6 +1,6 @@
-# Project: Maths Master
-# Component X.9: Runs All Operators
-# 020632023: All Operators Exportable Efficiently
+# Project: Maths Master - Improve your Maths skills through various quizzes and export your answers for reviewing
+# Component X.10: Finished Program
+# 04062023: Disabled Button & Window Closing
 
 
 # Classes Importing
@@ -91,21 +91,25 @@ class MathsMasterApp:
         # Addition Button Link
         def addition_button_clicked(click):
             """Runs Addition Quiz"""
+            self.root.destroy()
             QuizInterface("+")
 
         # Subtraction Button Link
         def subtraction_button_clicked(click):
             """Runs Subtraction Quiz"""
+            self.root.destroy()
             QuizInterface("-")
 
         # Multiplication Button Link
         def multiplication_button_clicked(click):
             """Runs Multiplication Quiz"""
+            self.root.destroy()
             QuizInterface("*")
 
         # Division Button Link
         def division_button_clicked(click):
             """Runs Division Quiz"""
+            self.root.destroy()
             QuizInterface("/")
 
         # Creates Addition Widget
@@ -170,15 +174,26 @@ class MathsMasterApp:
         # Bottom Proximity, Footer Navigation (Row 3)
         self.bottom_buttons_frame.grid(row=3, column=0, rowspan=4)
 
+        # Exit Program Link
+        def exit_program_button_clicked():
+            self.root.destroy()
+
         # Help & Info Button Link
         def help_and_info_button_clicked():
+            self.root.destroy()
             HelpAndInfo()
+
+        # Exit Program Button
+        exit_program_button = Button(master=self.bottom_buttons_frame, text="Quit",
+                                     font=("Raleway", "11", "bold"), fg="black", bg="white",
+                                     height=1, width=16, relief="flat", command=exit_program_button_clicked)
+        exit_program_button.grid(row=3, column=0, padx=8, pady=0)
 
         # Help & Info Button
         help_and_info_button = Button(master=self.bottom_buttons_frame, text="Help & Info",
                                       font=("Raleway", "11", "bold"), fg="black", bg="white",
                                       height=1, width=16, relief="flat", command=help_and_info_button_clicked)
-        help_and_info_button.grid(row=3, column=0, padx=8, pady=0)
+        help_and_info_button.grid(row=3, column=1, padx=8, pady=0)
 
 
 # Addition Quiz Class Window
@@ -190,7 +205,7 @@ class QuizInterface:
 
         # Sets Tkinter Window Settings
         self.root = Tk()
-        self.root.title("Maths Master: Addition Quiz")
+        self.root.title("Maths Master Quiz")
         self.root.resizable(False, False)
         self.root.configure(bg="#242424")
 
@@ -235,7 +250,7 @@ class QuizInterface:
         self.top_headings_frame.grid(row=0, column=0)
 
         # Main & Subheading Labels
-        menu_heading_text = "Addition Quiz"
+        menu_heading_text = "Maths Master Quiz"
         main_heading = Label(master=self.top_headings_frame, text=menu_heading_text,
                              font=("Raleway", "20", "bold"), bg="#2B2B2B", fg="white", width=30)
         main_heading.pack(pady=(10, 0))
@@ -279,6 +294,7 @@ class QuizInterface:
         def return_to_menu_button_clicked():
             """Closes Window"""
             self.root.destroy()
+            MathsMasterApp()
 
         # Return To Menu Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
@@ -342,6 +358,7 @@ class QuizInterface:
             if len(self.incorrect_list) == 0:
                 self.root.destroy()
             else:
+                self.root.destroy()
                 HistoryAndExport(self.incorrect_list)
 
     def answer_check(self):
@@ -460,6 +477,7 @@ class HelpAndInfo:
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
             self.root.destroy()
+            MathsMasterApp()
 
         # Help & Info Button
         return_to_menu_button = Button(master=self.bottom_buttons_frame, text="Return To Menu",
@@ -563,8 +581,9 @@ class HistoryAndExport:
 
         # Return To Menu Button Link
         def return_to_menu_button_clicked():
-            """Testing Button"""
+            """Closes Exporting Menu and Opens Main Menu"""
             self.root.destroy()
+            MathsMasterApp()
 
         # History & Export Link
         def export_answers_list():
