@@ -1,6 +1,6 @@
 # Project: Maths Master - AS91906 (Marc Mojica).
 # Improve your Maths skills through various quizzes and export your answers for reviewing.
-# Component X.11: Refined Finished Program.
+# Component X.12: Final Refined Finished Program.
 # 04062023: Added Window Focussing and Accessibility Button Binds.
 
 
@@ -353,7 +353,13 @@ class QuizInterface:
             number_one_divisor = [i for i in range(1, self.number_one + 1) if self.number_one % i == 0]
             """Sets Whole Numbers as Answers"""
 
-            self.number_two = random.choice(number_one_divisor)
+            if number_one_divisor:
+                self.number_two = random.choice(number_one_divisor)
+
+            else:
+                """Handles Empty Divisor"""
+                self.number_two = 1
+
             self.question = f"{self.number_one} ÷ {self.number_two}"
             self.answer = self.number_one // self.number_two
 
