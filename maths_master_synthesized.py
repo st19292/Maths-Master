@@ -2,7 +2,7 @@
 Project: Maths Master - (Marc Mojica).
 
 Assessment: AS91906 - Use complex programming techniques to develop a program.
-Info: Improve Maths skills through  quizzes and export answers for reviewing.
+Info: Improve Maths skills through quizzes and export answers for reviewing.
 Component X.12 - 8062023: Final Refined Program, Addressed Conventions.
 """
 
@@ -13,8 +13,9 @@ from PIL import Image, ImageTk
 import random
 import datetime
 
-# Styling Constants
-TOP_LEFT = "+0+10"
+# Styling/General Constants
+QUESTIONS = 10
+POSITION = "+0+10"
 MAIN_FONT = "Raleway"
 RED = "#FF9999"
 GREEN = "#99FF99"
@@ -32,7 +33,7 @@ class MathsMasterApp:
         self.root.title("Maths Master")
         self.root.resizable(False, False)
         self.root.configure(bg=DARK)
-        self.root.geometry(TOP_LEFT)
+        self.root.geometry(POSITION)
         self.root.focus_force()
 
         # Creates Top, Middle & Bottom Proximity Frame
@@ -87,9 +88,8 @@ class MathsMasterApp:
         """Middle Proximity: Button Operators Frame Function (Row 1-2)."""
         self.middle_buttons_frame.grid(row=1, column=0, rowspan=2)
 
-        # Operator Buttons Link
+        # Runs Operator Quizzes
         def add_button_clicked(click):
-            """Runs Addition Quiz."""
             self.root.destroy()
             QuizInterface("+")
 
@@ -225,7 +225,7 @@ class QuizInterface:
         self.root.title("Maths Master Quiz")
         self.root.resizable(False, False)
         self.root.configure(bg=DARK)
-        self.root.geometry(TOP_LEFT)
+        self.root.geometry(POSITION)
 
         # Creates Top, Middle & Bottom Proximity Frame
         self.top_heading_frame = Frame(self.root, padx=10, pady=10, bg=DARK)
@@ -378,7 +378,7 @@ class QuizInterface:
         self.question_number += 1
 
         # Disables Button if 10 Question Iterated
-        if self.question_number > 11:
+        if self.question_number > QUESTIONS + 1:
             self.subheading.config(text="Quiz Finished")
             self.next_question_button.config(state="disabled")
 
@@ -450,7 +450,7 @@ class HelpAndInfo:
         self.root.title("Maths Master: Help & Info")
         self.root.resizable(False, False)
         self.root.configure(bg=DARK)
-        self.root.geometry(TOP_LEFT)
+        self.root.geometry(POSITION)
         self.root.focus_force()
 
         # Creates Top, Middle & Bottom Proximity Frame
@@ -529,7 +529,7 @@ class HistoryAndExport:
         self.root.title("Maths Master: History & Export")
         self.root.resizable(False, False)
         self.root.configure(bg=DARK)
-        self.root.geometry(TOP_LEFT)
+        self.root.geometry(POSITION)
 
         # Creates Top, Middle & Bottom Proximity Frame
         self.top_heading_frame = Frame(self.root, padx=10, pady=10, bg=DARK)
