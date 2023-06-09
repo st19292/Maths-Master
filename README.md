@@ -1,4 +1,7 @@
-# Maths-Master
-The Maths Master Project can be used to practice your basic maths skills.
+Project: Maths Master - (Marc Mojica).
 
-![image](https://github.com/st19292/Maths-Master/assets/128324391/ca83b38e-3c39-4eec-9387-8a6d49a4b16c)
+Assessment: AS91906 - Use complex programming techniques to develop a program.
+Info: Improve Maths skills through quizzes and export answers for reviewing.
+Component X.14 - 8062023: Final Refined Program, Addressed More Conventions.
+
+![MathMasterPreview](https://github.com/st19292/Maths-Master/assets/128324391/05d11175-6450-41f5-b338-ee4e7d762168)
