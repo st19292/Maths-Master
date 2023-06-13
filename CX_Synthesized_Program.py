@@ -3,7 +3,7 @@ Project: Maths Master - (Marc Mojica).
 
 Assessment: AS91906 - Use complex programming techniques to develop a program.
 Info: Improve Maths skills through quizzes and export answers for reviewing.
-12062023: Added Boundary Constraints, Subtraction Algorithm & Improved Theme.
+13062023: Changed Quiz Input Subheading
 """
 
 # Class Imports: Tkinter Elements, Pillow Images, Randomizing & Date Acquiring
@@ -298,7 +298,7 @@ class QuizInterface:
         self.feedback_text = Label(master=self.middle_quiz_frame,
                                    text="Please type an answer",
                                    font=(MAIN_FONT, "9"),
-                                   bg=GREY, fg=LIGHT_BLUE, width=35)
+                                   bg=GREY, fg=LIGHT_BLUE, width=50)
         self.feedback_text.grid(row=3, column=0)
 
         # Entry Feedback
@@ -436,17 +436,17 @@ class QuizInterface:
                 self.feedback_text.config(fg=GREEN)
 
             elif user_answer < MIN_NUM:
-                self.feedback_text.config(text=f"{user_answer} is too small - "
-                                               f"Please enter a"
-                                               f" bigger number.")
+                self.feedback_text.config(text=f"Number too small, "
+                                               f"please enter a "
+                                               f"bigger number.")
                 self.feedback_text.config(fg=ORANGE)
                 self.user_entry.delete(0, END)
                 return
 
             elif user_answer > MAX_NUM:
-                self.feedback_text.config(text=f"{user_answer} is too big - "
-                                               f"Please enter a"
-                                               f" smaller number.")
+                self.feedback_text.config(text=f"Number too big, "
+                                               f"please enter a "
+                                               f"smaller number.")
                 self.feedback_text.config(fg=ORANGE)
                 self.user_entry.delete(0, END)
                 return
@@ -632,7 +632,8 @@ class HistoryAndExport:
                                 rowspan=2, padx=10, pady=(0, 0))
 
         # Answers List Saving Heading
-        self.file_naming = Label(master=export_entry_frame, text="Export Test",
+        self.file_naming = Label(master=export_entry_frame,
+                                 text="Export Answers",
                                  font=(MAIN_FONT, "10",),
                                  bg=GREY, fg=LIGHT_BLUE)
         self.file_naming.grid(row=4, column=0, pady=0)
